@@ -6,6 +6,9 @@
 //
 
 import UIKit
+protocol FeaturedCourseTableViewCellDelegate {
+    func presentDetailCourse(index: Int)
+}
 
 class FeaturedCourseTableViewCell: UITableViewCell {
 
@@ -17,13 +20,15 @@ class FeaturedCourseTableViewCell: UITableViewCell {
     
     //MARK:- Outlets
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
+    //MARK:- Variable
+    var delegate : FeaturedCourseTableViewCellDelegate!
     //MARK:- LifeCycle Methods
     override func awakeFromNib() {
         super.awakeFromNib()
         collectionView.delegate = self
         collectionView.dataSource = self
-        print("Collection Cell")
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         collectionView.showsHorizontalScrollIndicator = false
@@ -45,6 +50,7 @@ extension FeaturedCourseTableViewCell: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedCourseCollectionViewCell.identifier, for: indexPath) as! FeaturedCourseCollectionViewCell
+        
         return cell
     }
     
@@ -52,4 +58,12 @@ extension FeaturedCourseTableViewCell: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width / 2, height: collectionView.frame.size.height )
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate.presentDetailCourse(index: indexPath.item)
+    }
+    
 }
+
+
+

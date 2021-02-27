@@ -15,6 +15,7 @@ class FeatureViewController: UIViewController {
     //MARK:- LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TitleTableViewCell.nib(), forCellReuseIdentifier: TitleTableViewCell.identifier)
@@ -42,6 +43,7 @@ extension FeatureViewController: UITableViewDelegate, UITableViewDataSource{
             
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: FeaturedCourseTableViewCell.identifier) as! FeaturedCourseTableViewCell
+            cell.delegate = self
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier) as! CategoryTableViewCell
@@ -61,4 +63,14 @@ extension FeatureViewController: UITableViewDelegate, UITableViewDataSource{
             return 300
         }
     }
+}
+
+extension FeatureViewController: FeaturedCourseTableViewCellDelegate{
+    func presentDetailCourse(index: Int) {
+        let sb = UIStoryboard(name: "CourseDetail", bundle: nil)
+            let featuredVC = sb.instantiateViewController(withIdentifier: "detailCourseVC") as! CourseDetailViewController
+        self.navigationController?.pushViewController(featuredVC, animated: true)
+        
+    }
+    
 }

@@ -22,6 +22,7 @@ class FeaturedCourseCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var bestSellerLabel: UILabel!
     
+    
     //MARK:- LifeCycle Methods
     override func awakeFromNib() {
         super.awakeFromNib()
